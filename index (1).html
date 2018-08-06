@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Title</title>
+<link media="all" rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<div class="container">
+  <div class="productWrapper">
+    <div class="mainProduct">
+      <figure>
+        <div class="mainProduct-details">
+          <h2 class="mainProduct-title">Electrics</h2>
+          <div class="mainProduct-info">Clip on speaker</div>
+          <div class="mainProduct-price">300</div>
+        </div>
+        <div class="mainProduct-img">
+          <img src="images/img01.jpg">
+        </div>
+        <div class="anim1"></div>
+      </figure>
+    </div>
+    <ul class="productList">
+      <li>
+        <figure>
+          <img src="images/img02.jpg">
+          <p>Plate</p>
+          <span>65</span>
+          <div class="anim"></div>
+        </figure>
+      </li>
+      <li>
+        <figure>
+          <img src="images/img02.jpg">
+          <p>Plate</p>
+          <span>65</span>
+          <div class="anim"></div>
+        </figure>
+      </li>
+      <li>
+        <figure>
+          <img src="images/img02.jpg">
+          <p>Plate</p>
+          <span>65</span>
+          <div class="anim"></div>
+        </figure>
+      </li>
+    </ul>
+  </div>
+  <div class="productDetail">
+    <div class="productDetail-left">
+      <div class="productDetail-img">
+        <img src="images/img05.jpg">
+        <a href="javascript:void(0)" class="productDetail-close">X</a>
+      </div>
+      <div class="productDetail-details">
+        <h2 class="productDetail-title">Electrics</h2>
+        <div class="productDetail-info">Clip on speaker</div>
+        <div class="productDetail-price">300</div>
+      </div>
+    </div>
+    <div class="productDetail-right">
+      <div class="productDetail-right-title">Intro</div>
+      <div class="productDetail-right-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+      <div class="productDetail-right-title">Product Details</div>
+    </div>
+  </div>
+</div>
+<script src="js/jquery-1.11.2.min.js"></script>
+<script src="js/jquery-main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenMax.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.11.5/plugins/CSSRulePlugin.min.js"></script>
+<script>
+var productWrapper = document.querySelector(".productWrapper"),
+    mainProduct = document.querySelector(".mainProduct"),
+    productDetails = document.querySelector(".productDetail"),
+    productList = document.querySelector(".productList"),
+    productDetailClose = document.querySelector(".productDetail-close");
+
+mainProduct.addEventListener("click", showProductDetail)
+
+function showProductDetail(event) {
+  event.preventDefault()
+  var tl = new TimelineLite();
+  tl.to(productWrapper, 1, {autoAlpha:0, display: "none"})
+    .to(productDetails, 1, {x:-250, y:170, autoAlpha:1, display: "block"})
+    .to(".productDetail-right", 1, {x: -90, autoAlpha: 1})
+
+  productDetailClose.addEventListener("click", closeProductDetail)
+}
+
+
+var tl2 = new TimelineLite();
+tl2.set(".productList li", {transformOrigin:"100% 50%"});
+tl2.set("mainProduct", {transformOrigin:"100% 50%"});
+tl2.set(".anim", {transformOrigin:"100% 50%"});
+
+tl2.from(mainProduct, 1, {width:"0", ease: Linear.easeNone})
+   .to(mainProduct, 0, {background: "#fff", ease: Linear.easeNone})
+   .to(".mainProduct figure", 0.4, {display: "block", ease: Linear.easeNone})
+   .from(".anim1", 1, {width: "100%", "zIndex": "1", ease: Linear.easeNone})
+   .from(".productList li", 1, {width:"0", ease: Linear.easeNone})
+   .to(".productList li", 0, {background: "#fff", ease: Linear.easeNone})
+   .to(".productList li figure", 0.4, {display: "block", ease: Linear.easeNone})
+   .from(".anim", 1, {width: "100%", "zIndex": "1", ease: Linear.easeNone})
+
+function closeProductDetail() {
+  event.preventDefault()
+  var tl1 = new TimelineLite();
+  tl1.to(".productDetail-right", 1, {x: 0, autoAlpha: 0})
+     .to(productDetails, 1, {x:0, y:0, autoAlpha:0, display: "none"})
+     .to(productWrapper, 1, {autoAlpha:1, display: "block"})
+}
+
+</script>
+</body>
+</html>
